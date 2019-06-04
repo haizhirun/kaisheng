@@ -11,10 +11,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-
 /**
- * 建立倒排索引
- 实现布尔查询A and B和A or B的处理
+ * 建立倒排索引 实现布尔查询A and B和A or B的处理
  * 
  * @author kaisheng
  *
@@ -38,7 +36,7 @@ public class InvertedIndex {
 		// 3.构建倒排索引
 		index.CreateIndex(f);
 
-		//4.根据key值对倒排索引排序
+		// 4.根据key值对倒排索引排序
 		index.map = sortMapByKey(index.map);
 		System.out.println("打印倒排索引表：");
 		for (Map.Entry<String, ArrayList<String>> map : index.map.entrySet()) {
