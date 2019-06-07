@@ -22,8 +22,7 @@ public class InvertedIndex {
 	private Map<String, ArrayList<String>> map = new HashMap<>();
 	// 存放所有的文档名称
 	private ArrayList<String> list;
-	// 存放此项以及文档词频
-	private Map<String, Integer> nums = new HashMap<>();
+	
 
 	public static void main(String[] args) {
 		// 1.初始化倒排索引对象
@@ -41,7 +40,7 @@ public class InvertedIndex {
 		System.out.println("打印倒排索引表：");
 		for (Map.Entry<String, ArrayList<String>> map : index.map.entrySet()) {
 			System.out.println(
-					"词项：" + map.getKey() + "文档频率:" + index.nums.get(map.getKey()) + "-->倒排索引表：" + map.getValue());
+					"词项：" + map.getKey() + "文档频率:" + map.getValue().size() + "-->倒排索引表：" + map.getValue());
 		}
 
 		Scanner scan = new Scanner(System.in);
@@ -132,28 +131,24 @@ public class InvertedIndex {
 					// 获取单词
 					temp += s + " ";
 				}
+				//获取每篇文档的名称，即文档号
 				String filepath = f.getName().substring(0, f.getName().indexOf(".txt"));
 				System.out.println("文档" + filepath + "中的内容为：");
+				//输出每篇文档的内容
 				System.out.println(temp);
 				words = temp.split(" ");
-				// 截取文件名称中的文档数字，如1,2,3...
-
 				for (String string : words) {
 
 					if (!map.containsKey(string)) {
 						list = new ArrayList<String>();
 						list.add(filepath);
 						map.put(string, list);
-						nums.put(string, 1);
 					} else {
 						list = map.get(string);
 						// 如果没有包含过此文件名，则把文件名放入,自处文档编号根据程序逻辑自动排好序了
 						if (!list.contains(filepath)) {
 							list.add(filepath);
 						}
-						// 文件总词频数目
-						int count = nums.get(string) + 1;
-						nums.put(string, count);
 					}
 				}
 				reader.close();
