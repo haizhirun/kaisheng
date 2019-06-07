@@ -13,16 +13,13 @@ import java.util.TreeMap;
 
 /**
  * 建立倒排索引 实现布尔查询A and B和A or B的处理
- * 
  * @author kaisheng
- *
  */
 public class InvertedIndex {
 	// 存放词项以及该此项所在的文档集
 	private Map<String, ArrayList<String>> map = new HashMap<>();
 	// 存放所有的文档名称
 	private ArrayList<String> list;
-	
 
 	public static void main(String[] args) {
 		// 1.初始化倒排索引对象
@@ -44,7 +41,7 @@ public class InvertedIndex {
 		}
 
 		Scanner scan = new Scanner(System.in);
-		// 实现布尔查询A and B
+		// 5.实现布尔查询A and B
 		System.out.println("请输入查询词项A:");
 		String A = scan.nextLine();
 		System.out.println("请输入查询词项B:");
@@ -77,7 +74,7 @@ public class InvertedIndex {
 		Btemp.addAll(Blist);
 		Btemp2.addAll(Blist);
 
-		// 实现布尔查询A and B
+		// 6.实现布尔查询A and B
 		Atemp.retainAll(Btemp);
 		int Clist = Atemp.size();
 		System.out.print("交集==>");
@@ -110,7 +107,6 @@ public class InvertedIndex {
 
 	/**
 	 * 构建倒排索引
-	 * 
 	 * @param f
 	 */
 	public void CreateIndex(File f) {
@@ -133,12 +129,11 @@ public class InvertedIndex {
 				}
 				//获取每篇文档的名称，即文档号
 				String filepath = f.getName().substring(0, f.getName().indexOf(".txt"));
-				System.out.println("文档" + filepath + "中的内容为：");
+				//System.out.println("文档" + filepath + "中的内容为：");
 				//输出每篇文档的内容
-				System.out.println(temp);
+				//System.out.println(temp);
 				words = temp.split(" ");
 				for (String string : words) {
-
 					if (!map.containsKey(string)) {
 						list = new ArrayList<String>();
 						list.add(filepath);
@@ -152,29 +147,31 @@ public class InvertedIndex {
 					}
 				}
 				reader.close();
-
 			} catch (IOException e) {
-
 				e.printStackTrace();
 			}
 		}
 
 	}
 
-	// 根据key值对文档集进行排序
+	/**
+	 * 根据key值对文档集进行排序
+	 * @param map
+	 * @return
+	 */
 	public static Map<String, ArrayList<String>> sortMapByKey(Map<String, ArrayList<String>> map) {
 		TreeMap<String, ArrayList<String>> result = new TreeMap<String, ArrayList<String>>();
 		// Map<String, ArrayList<String>> temp = new HashMap<>();
 		// 打印排序前的key值
-		System.out.println("打印每个词项以及该词项所在文档号：");
-		for (Map.Entry<String, ArrayList<String>> m : map.entrySet()) {
-			System.out.println(m.getKey() + ":" + m.getValue());
-		}
+		//System.out.println("打印每个词项以及该词项所在文档号：");
+		//for (Map.Entry<String, ArrayList<String>> m : map.entrySet()) {
+			//System.out.println(m.getKey() + ":" + m.getValue());
+		//}
 		Object[] array = map.keySet().toArray();
 		Arrays.sort(array);
 		// 打印排序后的key值以及对应的value
 		for (Object str : array) {
-//			System.out.println(str+""+map.get(str));
+			//System.out.println(str+""+map.get(str));
 			// 注意：HashMap：内部数值的顺序并不是以存放的先后顺序为主 ，而是以hash值的顺序为主，其次才是存放的先后顺序
 			// temp.put((String)str, map.get((String)str));
 			result.put((String) str, map.get(str));
